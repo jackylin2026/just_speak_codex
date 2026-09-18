@@ -1,0 +1,187 @@
+:root {
+  color-scheme: dark;
+  font-family: system-ui, -apple-system, sans-serif;
+  /* The rec bar's height, as a length and not a percentage: WebKitGTK reports the document's
+     height as the widget's natural size and GTK sizes the window to it, so a percentage is
+     a feedback loop that settles wherever it likes. The shell pins the same number when it
+     places the window — 112 rather than the 132 it was when the bar also carried a line of
+     its own. */
+  --rec-bar-height: 112px;
+}
+
+/* The window is transparent, so the pill's rounded corners show the desktop through. */
+html,
+body {
+  margin: 0;
+  height: var(--rec-bar-height);
+  background: transparent;
+  overflow: hidden;
+}
+
+button {
+  font: inherit;
+  color: #e8e8ee;
+  background: #2a2a35;
+  border: 1px solid #3d3d4d;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  background: #35354a;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.rec-bar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  box-sizing: border-box;
+  height: calc(var(--rec-bar-height) - 12px);
+  margin: 6px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  background: rgba(22, 22, 30, 0.94);
+  border: 1px solid #33333f;
+}
+
+.record {
+  flex: none;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  font-size: 18px;
+  line-height: 1;
+  color: #ff6259;
+  padding: 0;
+}
+
+.record.on {
+  color: #ffb4ae;
+  background: #b3261e;
+  border-color: #d8453c;
+}
+
+.middle {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.headline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: #9a9aa8;
+}
+
+.state {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.state.listening,
+.state.connecting {
+  color: #ff8a80;
+}
+
+.state.polishing {
+  color: #d9c04a;
+}
+
+.state.done {
+  color: #4caf7d;
+}
+
+.state.error {
+  color: #ff6259;
+}
+
+.timer {
+  font-variant-numeric: tabular-nums;
+}
+
+.meter {
+  flex: 1 1 auto;
+  height: 4px;
+  max-width: 220px;
+  border-radius: 2px;
+  background: #33333f;
+  overflow: hidden;
+}
+
+.meter span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #4caf7d, #d9c04a 70%, #d8453c);
+  transition: width 90ms linear;
+}
+
+/* Two lines of text is all the room the bar has, and a long recording is longer than that,
+   so the box scrolls instead of the window growing. The scrollbar is hidden — a window that
+   cannot be focused is not a window you can scroll with a keyboard, so the scroller beside
+   the text is the control — and `overflow-y: auto` is what lets the wheel work as well, for
+   anyone whose pointer happens to be over the words. */
+.readout {
+  display: flex;
+  align-items: stretch;
+  gap: 6px;
+  min-width: 0;
+}
+
+.text {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #f2f2f7;
+  height: 38px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.text::-webkit-scrollbar {
+  display: none;
+}
+
+.scroller {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2px;
+}
+
+.scroller button {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  line-height: 1;
+  color: #b9b9c6;
+}
+
+.text.empty {
+  color: #6a6a7a;
+}
+
+.actions {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}

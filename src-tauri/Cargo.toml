@@ -1,0 +1,41 @@
+[package]
+name = "just_speak_codex"
+version = "0.1.0"
+description = "Speak, and the words land where you were typing"
+authors = ["Jack Lin"]
+edition = "2021"
+
+[lib]
+# The `_lib` suffix keeps the library name from colliding with the binary name.
+name = "just_speak_codex_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-global-shortcut = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+# Insertion: the clipboard through arboard, the paste keystroke through XTEST.
+enigo = "0.6"
+arboard = "3"
+# Killing the server's whole process group, which std cannot do.
+libc = "0.2"
+
+# Reaching the platform webview from with_webview(): PlatformWebview::inner() returns a
+# webkit2gtk::WebView on Linux. Pinned to the version wry pins, so cargo unifies to one
+# copy of the crate.
+[target.'cfg(any(target_os = "linux", target_os = "dragonfly", target_os = "freebsd", target_os = "openbsd", target_os = "netbsd"))'.dependencies]
+webkit2gtk = { version = "=2.0.2", features = ["v2_38"] }
+# Same version tauri depends on, so cargo unifies to one copy. Needed for
+# gtk_window_set_focus_on_map, which Tauri does not expose.
+gtk = { version = "0.18", features = ["v3_24"] }
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3
+panic = "abort"
+strip = true

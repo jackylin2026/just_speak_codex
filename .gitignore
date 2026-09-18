@@ -1,0 +1,24 @@
+node_modules/
+dist/
+target/
+
+# Python bytecode from the local transcription worker and its tests.
+__pycache__/
+*.pyc
+*.tsbuildinfo
+coverage/
+
+# Throwaway Phase 0 spike — deleted once the shell question is settled.
+spike/
+
+# Local runtime and models, kept out of the repo.
+.venv/
+.local-runtime/
+.local-models/
+
+# Personal history is data, not source.
+history/
+
+.env
+.env.*
+!.env.example

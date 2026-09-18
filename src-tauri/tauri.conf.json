@@ -1,0 +1,55 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "just_speak_codex",
+  "version": "0.1.0",
+  "identifier": "com.justspeak.app",
+  "build": {
+    "beforeDevCommand": "npm run dev:ui",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist/client"
+  },
+  "app": {
+    "withGlobalTauri": false,
+    "windows": [
+      {
+        "label": "rec-bar",
+        "url": "rec-bar.html",
+        "title": "just_speak_codex — Rec bar",
+        "width": 820,
+        "height": 112,
+        "decorations": false,
+        "transparent": true,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "resizable": true,
+        "focusable": false,
+        "visible": false
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["deb"],
+    "category": "Utility",
+    "shortDescription": "Speak, and the words land where you were typing",
+    "longDescription": "A dictation and English-practice tool. Speak into the microphone, and the polished text is typed into whatever application has focus. Recognition runs locally; recordings are held in memory and never written to disk.",
+    "resources": {
+      "../dist/server.js": "dist/server.js",
+      "../local/worker.py": "local/worker.py",
+      "../local/segmenter.py": "local/segmenter.py",
+      "../local/requirements.txt": "local/requirements.txt",
+      "../scripts/setup-local.mjs": "scripts/setup-local.mjs"
+    },
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  }
+}

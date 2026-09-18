@@ -1,0 +1,331 @@
+:root {
+  color-scheme: dark;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100vh;
+}
+
+body {
+  background: #16161e;
+  color: #e8e8ee;
+}
+
+button {
+  font: inherit;
+  color: #e8e8ee;
+  background: #2a2a35;
+  border: 1px solid #3d3d4d;
+  border-radius: 6px;
+  padding: 5px 11px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  background: #35354a;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 20px 0;
+}
+
+h1 {
+  font-size: 15px;
+  margin: 0;
+  color: #f2f2f7;
+}
+
+nav {
+  display: flex;
+  gap: 6px;
+}
+
+nav button.on {
+  background: #3a3a4d;
+  border-color: #5b5b74;
+  color: #fff;
+}
+
+.body {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 16px 20px 20px;
+  overflow: auto;
+}
+
+.split {
+  display: flex;
+  gap: 18px;
+  height: 100%;
+  min-height: 0;
+}
+
+.entries {
+  flex: 0 0 220px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  border-right: 1px solid #2a2a35;
+}
+
+.entries li {
+  position: relative;
+}
+
+.entries button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 7px 9px;
+}
+
+.entries button.on {
+  background: #24242f;
+  border-color: #3d3d4d;
+}
+
+/* The date keeps the line it always had, above the sentence, and is invisible until the
+   row is pointed at — or tabbed to, since this window has a keyboard in front of it. Its
+   line is reserved either way: the sentence is the thing being read and the thing about to
+   be clicked, so revealing the date must not move it, and it must not be covered by it.
+   Never wrapping is part of that: a wrapped date would grow the row it sits in. */
+.entries .when {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  transition: opacity 90ms;
+}
+
+/* The row's own line, revealed by the row being the one you are on — point at it, or tab
+   into the delete control that shares the line, and the date is there. */
+.entries li:hover .when,
+.entries li:focus-within .when {
+  opacity: 1;
+}
+
+/* Deleting lives on that same line — reserved, and already revealed by the hover that
+   brought the pointer here — which keeps it a row away from the sentence being clicked. */
+.entries .delete {
+  position: absolute;
+  top: 8px;
+  right: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Not `width: 100%` with the rest of the list's buttons: this one is sized by its label,
+     and it sits at the end of the line rather than across it. */
+  width: auto;
+  min-width: 16px;
+  height: 15px;
+  padding: 0 3px;
+  font-size: 9px;
+  line-height: 1;
+  color: #9a9aa8;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  opacity: 0;
+}
+
+.entries li:hover .delete,
+.entries li:focus-within .delete {
+  opacity: 1;
+}
+
+.entries .delete.armed {
+  font-size: 10px;
+  color: #ffb4ae;
+  background: #4a1f1c;
+  border-color: #7a3129;
+}
+
+/* Armed, the date moves over to make room for the question rather than the two running
+   into each other. Only the date: the sentence does not move at all. */
+.entries li.armed .when {
+  padding-right: 62px;
+}
+
+.when {
+  display: block;
+  font-size: 11px;
+  color: #8a8a99;
+}
+
+.what {
+  display: block;
+  font-size: 12.5px;
+  color: #e8e8ee;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.columns {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  min-width: 0;
+}
+
+h2 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9a9aa8;
+  margin: 0 0 8px;
+}
+
+.transcript {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.transcript.polished {
+  color: #cfe6d8;
+}
+
+.feedback {
+  max-width: 720px;
+}
+
+.feedback p {
+  margin: 0 0 14px;
+  line-height: 1.55;
+  font-size: 14px;
+}
+
+.corrections {
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
+}
+
+.corrections li {
+  border-left: 2px solid #3d3d4d;
+  padding: 0 0 0 12px;
+  margin-bottom: 12px;
+}
+
+.change {
+  margin: 0 0 4px;
+  font-size: 14px;
+}
+
+.change s {
+  color: #ff8a80;
+}
+
+.kind {
+  margin-left: 8px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9a9aa8;
+}
+
+.why {
+  margin: 0;
+  font-size: 13px;
+  color: #b9b9c8;
+}
+
+.centred,
+.empty {
+  max-width: 620px;
+  color: #b9b9c8;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.centred button {
+  margin-top: 12px;
+}
+
+.settings section {
+  max-width: 660px;
+  margin-bottom: 26px;
+}
+
+.settings p {
+  margin: 0 0 10px;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.hint {
+  color: #9a9aa8;
+  font-size: 13px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: #b9b9c8;
+}
+
+label.check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+select {
+  margin-left: 10px;
+  font: inherit;
+  font-size: 13px;
+  color: #e8e8ee;
+  background: #2a2a35;
+  border: 1px solid #3d3d4d;
+  border-radius: 6px;
+  padding: 4px 8px;
+}
+
+.problem {
+  color: #ff8a80;
+  font-size: 13px;
+  margin: 10px 0;
+}
+
+/* The tool's one voice, at the foot of the window. It holds its height when it has nothing
+   to say, so a message arriving never shifts the page above it. */
+.notice {
+  flex: 0 0 auto;
+  min-height: 16px;
+  padding: 6px 20px 10px;
+  border-top: 1px solid #26262f;
+  color: #9a9aa8;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.notice.error {
+  color: #ff8a80;
+}
